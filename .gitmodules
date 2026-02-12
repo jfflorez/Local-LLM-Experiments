@@ -1,0 +1,3 @@
+[submodule "llmengines/llama.cpp"]
+	path = llmengines/llama.cpp
+	url = https://github.com/ggml-org/llama.cpp
