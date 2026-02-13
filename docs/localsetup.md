@@ -15,3 +15,10 @@ Excute the following command on a terminal with access to docker. On Windows, fi
 ```
 docker compose -f llmengines/docker-compose.yaml up
 ```
+
+## My Docker Worflow (Stop container gracefully)
+On the WindowsPowerShell terminal, running the container. 
+1. Press `Ctrl + C` to stop the container.
+2. Run `docker ps -n <some number>` to discover the CONTAINER ID 
+3. Run `docker rm <CONTAINER ID (a SHA like string)> `
+
