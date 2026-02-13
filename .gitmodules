@@ -1,3 +1,6 @@
 [submodule "llmengines/llama.cpp"]
 	path = llmengines/llama.cpp
 	url = https://github.com/ggml-org/llama.cpp
+[submodule "utils"]
+	path = utils
+	url = https://www.github.com/jfflorez/myems.git
