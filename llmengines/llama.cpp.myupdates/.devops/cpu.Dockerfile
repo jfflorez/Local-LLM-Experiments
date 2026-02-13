@@ -23,12 +23,12 @@ RUN mkdir -p /app/lib && \
     find build -name "*.so*" -exec cp -P {} /app/lib \;
 
 RUN mkdir -p /app/full \
-    && cp build/bin/* /app/full \
-    && cp *.py /app/full \
-    && cp -r gguf-py /app/full \
-    && cp -r requirements /app/full \
-    && cp requirements.txt /app/full \
-    && cp .devops/tools.sh /app/full/tools.sh
+    && cp llama.cpp/build/bin/* /app/full \
+    && cp llama.cpp/*.py /app/full \
+    && cp -r llama.cpp/gguf-py /app/full \
+    && cp -r llama.cpp/requirements /app/full \
+    && cp llama.cpp/requirements.txt /app/full \
+    && cp llama.cpp/.devops/tools.sh /app/full/tools.sh
 
 ## Base image
 FROM ubuntu:$UBUNTU_VERSION AS base
@@ -55,6 +55,10 @@ RUN apt-get update \
     git \
     python3 \
     python3-pip \
+    # Clean up .sh file below from invalid eol characters (Windows install) ---------------
+    dos2unix \
+    && dos2unix /app/tools.sh \
+    # -------------------------------------------------------------------------------------
     && pip install --upgrade pip setuptools wheel \
     && pip install -r requirements.txt \
     && apt autoremove -y \
