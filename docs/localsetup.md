@@ -9,16 +9,17 @@
 git clone --recurse-submodules https://github.com/jfflorez/Local-LLM-Insights.git
 cd Local-LLM-Insights
 ```
-### Run LLM inference engine on a Docker container
-Excute the following command on a terminal with access to docker. On Windows, first install Docker Desktop, the Windows Subsystem for Linux WSL, and then use a WindowsPowerShell terminal.
 
-```
-docker compose -f llmengines/docker-compose.yaml up
+### 2. Download quantized models in GGUF format
+``` PowerShell
+curl.exe -L -o models/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF/resolve/main/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf
 ```
 
-## My Docker Worflow (Stop container gracefully)
-On the WindowsPowerShell terminal, running the container. 
-1. Press `Ctrl + C` to stop the container.
-2. Run `docker ps -n <some number>` to discover the CONTAINER ID 
-3. Run `docker rm <CONTAINER ID (a SHA like string)> `
+``` PowerShell
+curl.exe -L -o models/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf
+```
+``` PowerShell
+curl.exe -L -o models/mistral-7b-instruct-v0.2.Q4_K_M.gguf
+https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q4_K_M.gguf
+```
 
