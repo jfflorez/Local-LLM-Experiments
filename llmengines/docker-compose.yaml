@@ -1,6 +1,8 @@
 services:
   llama-server:
     image: local/llama.cpp:full-cpu   # or server-cpu if you built it
+    environment:
+      - MODEL_NAME=${MODEL_NAME:?error} #-Mistral-7B-Instruct-v0.3-Q4_K_M.gguf}
     build:
       context: . # denotes parent folder : so both llama.cpp and llama.cpp.myupdates are avaialble
       dockerfile: .devops/cpu.Dockerfile 
@@ -10,9 +12,17 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - "C:/llama/models:/models"
+      - "../models:/models"
+    #command: >
+    #  -s
+    #  -m /models/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf
+    #  --host 0.0.0.0
+    #  --port 8080
+
     command: >
       -s
-      -m /models/mistral-7b-instruct-v0.2.Q4_K_M.gguf
+      -m /models/${MODEL_NAME}
       --host 0.0.0.0
       --port 8080
+
+    restart: unless-stopped
