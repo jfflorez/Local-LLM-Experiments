@@ -1,13 +1,15 @@
 services:
   llama-server:
-    image: local/llama.cpp:full-cpu   # or server-cpu if you built it
+    #image: local/llama.cpp:full-cpu #llama.cpp-server   # or server-cpu if you built it
+    #image : local/llama.cpp-b8018
+    image : local/llama.cpp-b6683
     environment:
       - MODEL_NAME=${MODEL_NAME:?error} #-Mistral-7B-Instruct-v0.3-Q4_K_M.gguf}
     build:
-      context: . # denotes parent folder : so both llama.cpp and llama.cpp.myupdates are avaialble
-      #dockerfile: .devops/cpu.Dockerfile 
+      context: ./llama.cpp # denotes parent folder : so both llama.cpp and llama.cpp.myupdates are avaialble
+      dockerfile: ./llama.cpp/.devops/cpu.Dockerfile 
       # Comment line above and try line below if your docker build fails on Windows due to eol characters in tools.sh
-      dockerfile: llama.cpp.myupdates/.devops/cpu.Dockerfile
+      #dockerfile: llama.cpp.myupdates/.devops/cpu.Dockerfile
       target: server
     ports:
       - "8080:8080"
@@ -20,7 +22,6 @@ services:
     #  --port 8080
 
     command: >
-      -s
       -m /models/${MODEL_NAME}
       --host 0.0.0.0
       --port 8080
