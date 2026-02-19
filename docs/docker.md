@@ -3,7 +3,7 @@
 While inside the folder repo `Local-LLM-Experiments/`, run the following command:
 
 ```Powershell 
-docker build --file llmengines/llama.cpp/.devops/cpu.Dockerfile --tag llama.cpp-server llmengines/llama.cpp
+docker build --file llmengines/llama.cpp/.devops/cpu.Dockerfile --tag local/llama.cpp-b6683 llmengines/llama.cpp
 
 ```
 
