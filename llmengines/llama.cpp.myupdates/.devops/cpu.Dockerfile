@@ -7,7 +7,7 @@ ARG TARGETARCH
 RUN apt-get update && \
     apt-get install -y build-essential git cmake libssl-dev
 
-WORKDIR /app
+WORKDIR /app/llama.cpp
 
 COPY . .
 
@@ -72,7 +72,7 @@ ENTRYPOINT ["/app/tools.sh"]
 ### Light, CLI only
 FROM base AS light
 
-COPY --from=build /app/full/llama-cli /app/full/llama-completion /app
+COPY --from=build /app/full/llama-cli /app/full/llama-completion /app/
 
 WORKDIR /app
 
