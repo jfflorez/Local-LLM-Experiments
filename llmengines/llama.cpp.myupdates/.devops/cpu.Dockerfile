@@ -7,20 +7,20 @@ ARG TARGETARCH
 RUN apt-get update && \
     apt-get install -y build-essential git cmake libssl-dev
 
-WORKDIR /app/llama.cpp
+WORKDIR /app
 
 COPY . .
 
 RUN if [ "$TARGETARCH" = "amd64" ] || [ "$TARGETARCH" = "arm64" ]; then \
-        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=OFF -DLLAMA_BUILD_TESTS=OFF -DGGML_BACKEND_DL=ON -DGGML_CPU_ALL_VARIANTS=ON; \
+        cmake -S llama.cpp -B llama.cpp/build -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=OFF -DLLAMA_BUILD_TESTS=OFF -DGGML_BACKEND_DL=ON -DGGML_CPU_ALL_VARIANTS=ON; \
     else \
         echo "Unsupported architecture"; \
         exit 1; \
     fi && \
-    cmake --build build -j $(nproc)
+    cmake --build llama.cpp/build -j $(nproc)
 
 RUN mkdir -p /app/lib && \
-    find build -name "*.so*" -exec cp -P {} /app/lib \;
+    find llama.cpp/build -name "*.so*" -exec cp -P {} /app/lib \;
 
 RUN mkdir -p /app/full \
     && cp llama.cpp/build/bin/* /app/full \

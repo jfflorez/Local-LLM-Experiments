@@ -5,9 +5,9 @@ services:
       - MODEL_NAME=${MODEL_NAME:?error} #-Mistral-7B-Instruct-v0.3-Q4_K_M.gguf}
     build:
       context: . # denotes parent folder : so both llama.cpp and llama.cpp.myupdates are avaialble
-      dockerfile: .devops/cpu.Dockerfile 
+      #dockerfile: .devops/cpu.Dockerfile 
       # Comment line above and try line below if your docker build fails on Windows due to eol characters in tools.sh
-      #dockerfile: llama.cpp.myupdates/.devops/cpu.Dockerfile
+      dockerfile: llama.cpp.myupdates/.devops/cpu.Dockerfile
       target: server
     ports:
       - "8080:8080"
