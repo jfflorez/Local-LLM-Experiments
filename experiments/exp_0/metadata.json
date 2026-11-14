@@ -1,0 +1,23 @@
+{
+  "experiment_name": "exp_0",
+  "description": null,
+  "tags": [],
+  "start_time": "2026-03-20T19:37:38.217618",
+  "end_time": "2026-03-20T19:41:55.174117",
+  "duration_seconds": 256.956499,
+  "script_name": "interactiveshell.py",
+  "function_name": "run_code",
+  "config_files_used": [
+    "exp_0\\parameters\\params_variant_000_c57d7dd0.yaml",
+    "exp_0\\parameters\\params_variant_001_9f38a8fd.yaml",
+    "exp_0\\parameters\\params_variant_002_3f8bad6f.yaml",
+    "exp_0\\parameters\\params_variant_003_cffcbe5c.yaml",
+    "exp_0\\parameters\\params_variant_004_5e667a4e.yaml",
+    "exp_0\\parameters\\params_variant_005_77a0852a.yaml",
+    "exp_0\\parameters\\params_variant_006_985a1c84.yaml",
+    "exp_0\\parameters\\params_variant_007_32f4e96d.yaml"
+  ],
+  "num_runs": 8,
+  "status": "completed",
+  "error": null
+}

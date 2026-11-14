@@ -1,0 +1,8 @@
+endpoint_url: http://localhost:8080/v1/chat/completions
+model_name: Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf
+prompt: Pick an animal name at random. Any species. Only output that single word,
+  nothing else.
+n_samples: 50
+temperature: 15
+max_tokens: 10
+stream: false

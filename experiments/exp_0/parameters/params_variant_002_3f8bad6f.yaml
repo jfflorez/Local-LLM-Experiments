@@ -1,0 +1,8 @@
+endpoint_url: http://localhost:8081/v1/chat/completions
+model_name: Mistral-7B-Instruct-v0.3-Q4_K_M.gguf
+prompt: Pick an animal name at random. Any species. Only output that single word,
+  nothing else.
+n_samples: 50
+temperature: 5
+max_tokens: 10
+stream: false
