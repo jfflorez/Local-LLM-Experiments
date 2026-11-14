@@ -9,8 +9,6 @@ See [Local Setup](docs/localsetup.md) for detailed setup instructions.
 
 ## Experiment Index
 
-| # | Question | Models | Report |
+| # | Question | Models | Report | 
 |---|----------|--------|--------|
-| 0 | How does sampling temperature shape the distribution of the first generated word? | Mistral-7B-Instruct-v0.3, Llama-3.1-8B-Instruct | [exp_0](experiments/exp_0/exp_0_report.md) |
-
-<img src="experiments/exp_0/figures/bar_plot_of_first_word_by_Mistral-7B-Instruct-v0.3-Q4_K_M.gguf.svg" width="500">
+| 0 | How does sampling temperature shape the distribution of the first generated word? | Mistral-7B-Instruct-v0.3, Llama-3.1-8B-Instruct | [exp_0](experiments/exp_0/exp_0_report.md) | 
