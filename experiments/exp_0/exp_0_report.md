@@ -9,7 +9,7 @@ Since the true PMF of the first word is unknown, we estimate it empirically usin
 ## Random experiment
 Fix a text *prompt* and pick a temperature in $[0,\infty).$ 
 
-1. Generate 50 text responses over independent chats. Follow the link [../experiments/exp_0/outputs/](../experiments/exp_0/outputs/) to see folder with responses.
+1. Generate 50 text responses over independent chats. Follow the link [/experiments/exp_0/outputs/](/experiments/exp_0/outputs/) to see folder with responses.
 2. Sample each text response at the first word. We obtain a random sample drawn from the first word's distribution.
 
 3. Estimate the PMF by constructing a bar plot of counts vs unique word categories in the sample.
@@ -25,14 +25,14 @@ The figures below show the obtained emperical PMFs up to a normalizing constant.
 
 **Meta-Llama-3.1-8B-Instruct**
 <div style="text-align: center">
-<img src="../experiments/exp_0/figures/bar_plot_of_first_word_by_Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf.svg" alt="Bar plot of first word PMF by Meta-Llama-3.1-8B-Instruct at different temperatures" width="300"> 
+<img src="/experiments/exp_0/figures/bar_plot_of_first_word_by_Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf.svg" alt="Bar plot of first word PMF by Meta-Llama-3.1-8B-Instruct at different temperatures" width="300"> 
 </div>
 
 <figcaption> Empirical PMF of the first generated word at different temperatures. </figcaption> 
 
 **Mistral-7B-Instruct-v0.3**
 <div style="text-align: center">
-<img src="../experiments/exp_0/figures/bar_plot_of_first_word_by_Mistral-7B-Instruct-v0.3-Q4_K_M.gguf.svg" alt="Bar plot of first word PMF by Mistral-7B-Instruct-v0.3 at different temperatures" width="300"> 
+<img src="/experiments/exp_0/figures/bar_plot_of_first_word_by_Mistral-7B-Instruct-v0.3-Q4_K_M.gguf.svg" alt="Bar plot of first word PMF by Mistral-7B-Instruct-v0.3 at different temperatures" width="300"> 
 </div>
 Empirical PMF of the first generated word at different temperatures. 
 
