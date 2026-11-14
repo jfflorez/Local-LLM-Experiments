@@ -1,4 +1,4 @@
-# How does temperature sampling influences token output generation?
+# How does temperature sampling influence token output generation?
 
 To answer this question, we study how temperature affects the **probability mass function (PMF)** of the *first word* produced by a quantized large language model (LLM) in response to a fixed prompt.
 
@@ -9,7 +9,7 @@ Since the true PMF of the first word is unknown, we estimate it empirically usin
 ## Random experiment
 Fix a text *prompt* and pick a temperature in $[0,\infty).$ 
 
-1. Generate 50 text responses over independent chats. Follow the link [/experiments/exp_0/outputs/](/experiments/exp_0/outputs/) to see folder with responses.
+1. Generate 50 text responses over independent chat sessions. Follow the link [/experiments/exp_0/outputs/](/experiments/exp_0/outputs/) to see folder with responses.
 2. Sample each text response at the first word. We obtain a random sample drawn from the first word's distribution.
 
 3. Estimate the PMF by constructing a bar plot of counts vs unique word categories in the sample.
@@ -21,7 +21,7 @@ We ran the above experiment with the following prompt.
 ```Python
 prompt = "Pick an animal name at random. Any species. Only output that single word, nothing else."
 ```
-The figures below show the obtained emperical PMFs up to a normalizing constant. This includes six different configurations given by changes in the *quantized LLM models* and their *temperature* parameter during generation.  
+The figures below show the obtained empirical PMFs up to a normalizing constant. This includes eight different configurations given by changes in the *quantized LLM models* and their *temperature* parameter during generation.  
 
 **Meta-Llama-3.1-8B-Instruct**
 <div style="text-align: center">
@@ -38,4 +38,6 @@ Empirical PMF of the first generated word at different temperatures.
 
 ## Conclusion:
 
-We can observe for both models that temperature shapes the probability mass of the first word, being at the zero temperature, a deterministic outcome, all mass is concentrarted at a single word, as we increase temperature from 1 to 15, we probabily mass skews and flattens tending to unfirrom at infinite temperature. In other words at low temperatures the models are more conservative while at higher temperatures they become more creative!
+We can observe for both models that temperature shapes the probability mass of the first word, at the lowest temperature tested (0.2) the mass is concentrated on a few words, and as we increase temperature from 1 to 15 the probability mass flattens across more words. In other words at low temperatures the models are more conservative while at higher temperatures they become more creative!
+
+**Note:** the distribution does not become uniform over the whole vocabulary, even at T=15. llama.cpp's default sampler chain truncates candidates (top-k=40, top-p=0.95, min-p=0.05) *before* temperature is applied, so temperature only redistributes mass among the surviving candidates.
