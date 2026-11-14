@@ -8,6 +8,7 @@ import subprocess
 import requests
 import time
 from urllib.parse import urljoin
+import math 
 
 class myLlamacppClient():
 
@@ -147,8 +148,69 @@ class myLlamacppClient():
         self.container_id = self._get_container_id()  # <- here
         print(f"Ready! Model {model_name} is live.")
 
+    def get_next_token_probabilities(self, formatted_prompt, temperature):
+        url = urljoin(self.base_url, 'completion')
+        json_payload = {
+            "prompt": formatted_prompt,
+            "temperature": temperature,
+            "n_predict": 1,
+            "n_probs": 40,
+            "post_sampling_probs": True,  # apply temperature + full sampling chain
+            "samplers": ["top_p","temperature"]
+        }
+        response = requests.post(url, json=json_payload, timeout=50)
+        result = response.json()['completion_probabilities'][0]
+        
+        #probs = [math.exp(e["logprob"]) for e in result["top_logprobs"]]
+        probs = [e["prob"] for e in result["top_probs"]]
+        assert sum(probs) <= 1.0 + 1e-3, f"Probabilities sum to {sum(probs)}, expected <= 1.0"
+        
+        return result
 
-                
+    def apply_template(self, prompt):
+        messages = [{"role": "user", "content": prompt}]
+        resp = requests.post(urljoin(self.base_url, 'apply-template'), json={"messages": messages})
+        return resp.json()["prompt"]
+
+    def word_pmf(self, prompt, temperature=1.0, min_prob=1e-3):
+        formatted_prompt = self.apply_template(prompt)
+        #pmf = {}#defaultdict(float)
+        from collections import Counter
+        pmf = Counter()
+
+        def recurse(context, current_text, accumulated_prob):
+            if accumulated_prob < min_prob:
+                return
+
+            result = self.get_next_token_probabilities(context, temperature)
+            #top_logprobs = result["top_logprobs"]
+            top_probs = result["top_probs"]
+
+            #for entry in top_logprobs:
+            for entry in top_probs:
+                token_str = entry["token"]
+                #prob = math.exp(entry["logprob"])
+                prob = entry["prob"]
+                new_prob = accumulated_prob * prob
+                text = current_text + token_str
+
+                #stripped = text.lstrip()
+
+                is_new_word = entry["bytes"] and entry["bytes"][0] == 32
+                is_eos = not token_str.strip()
+
+                if current_text and (is_new_word or is_eos):
+                #if ' ' in stripped or not token_str.strip():
+                    #word = stripped.split()[0] if stripped.split() else None
+                    word = current_text.lstrip()
+                    if word:
+                        pmf[word] += new_prob
+                else:
+                    recurse(context + token_str, text, new_prob)
+
+        recurse(formatted_prompt, '', 1.0)
+        return pmf
+                    
 
 
 
