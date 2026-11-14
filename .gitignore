@@ -1,4 +1,5 @@
 *.gguf
 *.pyc
 **/__pycache__/
+__pychache__
 *.pkl
